@@ -1,0 +1,14 @@
+# Endpoints
+BASE_URL = "https://api.indusappstore.com/apis/"
+
+# Secrets
+APP_ID = "c46aae5ef00640a09869fb183724b586"
+APP_SIGNATURE = "L4lSY5pucA9Xwm5oS/xDmHZeDZA="
+
+# Header Values
+MERCHANT_ID = "APPBAZAARONLINE"
+CHECKMATE_CLIENT_ID = "AB_ANDROID"
+ORG_ID = "INDUS_OS"
+REQUEST_ALIAS = "V4_1"
+SOURCE_TYPE = "INDUS_APP"
+APP_VERSION = 25093063
