@@ -16,6 +16,8 @@ ANDROID_VERSION = 33
 RELEASE_VERSION = 13
 SDK_VERSION = "25.09.23.6_BETA"
 GA_VERSION = 25092360
+UNIVERSE = "standaloneB2C"
+BUILD_VERSION = "sta-25092360"
 
 # Device specific values
 DEVICE_BRAND = "Redmi"
@@ -28,8 +30,8 @@ DEVICE_LOCALES = ["en", "en-IN"]
 DEVICE_ABIS = ["arm64-v8a", "armeabi-v7a", "armeabi"]
 
 # User specific values
-ANDROID_ID = "71041e12a3a347dd"
-GAID = "f532e3ed-6e8f-4b0f-a80d-b7de5f4882c7"
+ANDROID_ID = ""
+GAID = ""
 
 LATITUDE = None
 LONGITUDE = None
@@ -42,7 +44,7 @@ CID = None
 NETWORK_OPERATOR_NAME = None
 NETWORK_TYPE = "wifi"
 
-X_EXTENDED_USER_AGENT = {
+EXTENDED_USER_AGENT = {
     "client": "AppBazaarClient",
     "meta": {
         "version": GA_VERSION,
@@ -56,11 +58,6 @@ X_EXTENDED_USER_AGENT = {
 }
 
 USER_AGENT = "Dalvik/2.1.0 (Linux; U; Android 13; RAD69 Build/TKQ1.221114.001)"
-
-INTEGRATION_TYPE = "standalone"
-UNIVERSE = "standaloneB2C"
-
-BUILD_VERSION = "sta-25092360"
 SPLIT_APK_SUPPORTED = True
 
-DEVICE_ID = "CJMpxbV20rBoyc8lwczb3LN1fI53bnNvqROge5Lyl40"
+DEVICE_ID = ""  # 32 bytes

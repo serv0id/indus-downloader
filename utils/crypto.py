@@ -1,5 +1,4 @@
 import time
-from config import APP_SIGNATURE
 
 
 class CryptoUtils(object):
@@ -29,19 +28,10 @@ class CryptoUtils(object):
         pass
 
     @staticmethod
-    def unmerge_bytes(self, data: bytes) -> tuple[bytes, bytes]:
+    def unmerge_bytes(data: bytes) -> tuple[str, str]:
         """
         Reverse the merge_bytes() operation.
-
-        Requires:
-            len(data) >= 28
-
-        Recovers:
-            a3 (original length = len(data) - len(a4))
-            a4 (fixed length = 16 bytes portion used)
         """
-        size = len(data)
-
         a4 = bytearray(16)
         a4[0:4] = data[0:4]
         a4[4:8] = data[8:12]
@@ -55,7 +45,7 @@ class CryptoUtils(object):
 
         a3_tail = data[28:]
 
-        return bytes(a3_hdr + a3_tail), bytes(a4)
+        return (a3_hdr + a3_tail).decode(), a4.decode()
 
 
 if __name__ == "__main__":
