@@ -20,10 +20,10 @@ class CryptoUtils(object):
             - The device ID is retrieved in base64.
             - These three values are appended and hashed (SHA-1) and used as the key.
             - The payload's SHA-256 is calculated and encoded to base64.
-            - The hashed payload is encrypted using the first 16 bytes of the key and
+            - The (timestamp (in ms) || "###" || hashed payload) is encrypted using the first 16 bytes of the key and
               a random IV and tag using AES-GCM.
-            - The result's IV and tag is appended to itself.
-            - The UUID and the appended string is "zig-zagged" into a single string.
+            - The tag and IV is appended to the result.
+            - The appended string and the UUID is "zig-zagged" into a single string.
         """
         pass
 
@@ -46,6 +46,20 @@ class CryptoUtils(object):
         a3_tail = data[28:]
 
         return (a3_hdr + a3_tail).decode(), a4.decode()
+
+    @staticmethod
+    def merge_bytes(a3: str, a4: str) -> bytes:
+        """
+        Merges the two strings in a "zigzag" manner.
+        """
+        a3b = a3.encode()
+        a4b = a4.encode()
+        return (
+                a4b[0:4] + a3b[0:4] +
+                a4b[4:8] + a3b[4:8] +
+                a4b[8:12] + a3b[8:12] +
+                a4b[12:16] + a3b[12:]
+        )
 
 
 if __name__ == "__main__":
