@@ -1,9 +1,12 @@
 import base64
 import hashlib
+import secrets
 import time
 import uuid
-from Crypto.Cipher import AES
+from Crypto.Cipher import AES, PKCS1_v1_5
 from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad
+from Crypto.PublicKey import RSA
 import config
 
 
@@ -31,10 +34,10 @@ class CryptoUtils(object):
             - The tag and IV is appended to the result.
             - The appended string and the UUID is "zig-zagged" into a single string.
         """
-        uuid_stripped: str = str(uuid.uuid4())[:16]
+        uuid_stripped = str(uuid.uuid4())[:16]
 
-        key: bytes = hashlib.sha1((uuid_stripped + config.APP_SIGNATURE + self.device_id).encode()).digest()[:16]
-        hashed_payload: bytes = base64.b64encode(hashlib.sha256(payload.encode()).digest())
+        key = hashlib.sha1((uuid_stripped + config.APP_SIGNATURE + self.device_id).encode()).digest()[:16]
+        hashed_payload = base64.b64encode(hashlib.sha256(payload.encode()).digest())
 
         combined_payload = str(int(time.time()) * 1000) + "###" + hashed_payload.decode()
 
@@ -47,6 +50,29 @@ class CryptoUtils(object):
         final_checksum = self.merge_bytes(encoded_checksum.decode(), uuid_stripped)
 
         return final_checksum.decode()
+
+    def build_fingerprint(self) -> str:
+        """
+        Builds the device fingerprint header.
+
+        Flow:
+            - Generate a random 32-byte AES key.
+            - Use the first 16 bytes of the key as the IV.
+            - Encrypt the device ID in CBC mode.
+            - Wrap the key itself with RSA pubkey.
+            - Concatenate these values along with a length parameter to indicate separation.
+        """
+        key = secrets.token_bytes(32)
+        nonce = key[:16]
+
+        cipher_aes = AES.new(key, AES.MODE_CBC, nonce)
+        ciphertext_aes = base64.b64encode(cipher_aes.encrypt(pad(base64.b64encode(self.device_id.encode()),
+                                                                 AES.block_size))).decode()  # double encoding
+
+        cipher_rsa = PKCS1_v1_5.new(RSA.import_key(base64.b64decode(config.RSA_PUB)))
+        ciphertext_rsa = base64.b64encode(cipher_rsa.encrypt(base64.b64encode(key))).decode()
+
+        return str(len(ciphertext_rsa)).zfill(10) + ciphertext_rsa + ciphertext_aes
 
     @staticmethod
     def unmerge_bytes(data: bytes) -> tuple[str, str]:
