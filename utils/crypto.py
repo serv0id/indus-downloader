@@ -1,4 +1,10 @@
+import base64
+import hashlib
 import time
+import uuid
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+import config
 
 
 class CryptoUtils(object):
@@ -6,7 +12,7 @@ class CryptoUtils(object):
         self.current_time = int(time.time() * 1000)
         self.device_id = device_id
 
-    def build_checksum_v4_1(self) -> None:
+    def build_checksum_v4_1(self, payload: str) -> str:
         """
         Also known as "newChecksumSecure", this value is derived
         from a certain known set of values which are shared with the
@@ -25,11 +31,27 @@ class CryptoUtils(object):
             - The tag and IV is appended to the result.
             - The appended string and the UUID is "zig-zagged" into a single string.
         """
-        pass
+        uuid_stripped: str = str(uuid.uuid4())[:16]
+
+        key: bytes = hashlib.sha1((uuid_stripped + config.APP_SIGNATURE + self.device_id).encode()).digest()[:16]
+        hashed_payload: bytes = base64.b64encode(hashlib.sha256(payload.encode()).digest())
+
+        combined_payload = str(int(time.time()) * 1000) + "###" + hashed_payload.decode()
+
+        nonce = get_random_bytes(12)
+        cipher = AES.new(key, AES.MODE_GCM, nonce)
+        encrypted_payload, tag = cipher.encrypt_and_digest(combined_payload.encode())
+
+        encoded_checksum = b"16" + base64.b64encode(encrypted_payload + tag) + base64.b64encode(nonce)
+
+        final_checksum = self.merge_bytes(encoded_checksum.decode(), uuid_stripped)
+
+        return final_checksum.decode()
 
     @staticmethod
     def unmerge_bytes(data: bytes) -> tuple[str, str]:
         """
+        * Helper Function *
         Reverse the merge_bytes() operation.
         """
         a4 = bytearray(16)
@@ -63,4 +85,4 @@ class CryptoUtils(object):
 
 
 if __name__ == "__main__":
-    c = CryptoUtils()
+    print("[-] Call this from an external module!")
