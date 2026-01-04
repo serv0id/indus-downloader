@@ -5,6 +5,14 @@ BASE_URL = "https://api.indusappstore.com/apis/"
 APP_ID = "c46aae5ef00640a09869fb183724b586"
 APP_SIGNATURE = "L4lSY5pucA9Xwm5oS/xDmHZeDZA="
 
+RSA_PUB = ("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsVtS18J6YIRVxRuwVoOv"
+           "hoYYOVTBV4Nc6wHH1ghBEBNIr9NWPWDaJ0rx5+IChO7qnsVwBhuRJArrOnDlFdQ6"
+           "PvvL3Qy0OJUnTQw5BC0pjWjkht6goxEhF7HNiCkmtiE8/KeUr6oKcIHRTF5gsOiS"
+           "uuihLzsowbGZZorDY+aZ07NblpAqnNDA7o3TxJILRRljdTrgReEejik+0loovlGn"
+           "8hlmZUYH6U75ytAzi7uE59fKDJfLVPn7AveqUOSxtnst05xtks1hkYfic9U1Br6F"
+           "Ju8EmP36/7GSEaE8ZAvn0Apn8tcFTZ147CU1z3G17bdzK/Xa4YJ/GBJO8T05JnQ9"
+           "lQIDAQAB")
+
 # Header Values
 MERCHANT_ID = "APPBAZAARONLINE"
 CHECKMATE_CLIENT_ID = "AB_ANDROID"
