@@ -5,13 +5,19 @@ BASE_URL = "https://api.indusappstore.com/apis/"
 APP_ID = "c46aae5ef00640a09869fb183724b586"
 APP_SIGNATURE = "L4lSY5pucA9Xwm5oS/xDmHZeDZA="
 
-RSA_PUB = ("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsVtS18J6YIRVxRuwVoOv"
-           "hoYYOVTBV4Nc6wHH1ghBEBNIr9NWPWDaJ0rx5+IChO7qnsVwBhuRJArrOnDlFdQ6"
-           "PvvL3Qy0OJUnTQw5BC0pjWjkht6goxEhF7HNiCkmtiE8/KeUr6oKcIHRTF5gsOiS"
-           "uuihLzsowbGZZorDY+aZ07NblpAqnNDA7o3TxJILRRljdTrgReEejik+0loovlGn"
-           "8hlmZUYH6U75ytAzi7uE59fKDJfLVPn7AveqUOSxtnst05xtks1hkYfic9U1Br6F"
-           "Ju8EmP36/7GSEaE8ZAvn0Apn8tcFTZ147CU1z3G17bdzK/Xa4YJ/GBJO8T05JnQ9"
-           "lQIDAQAB")
+RSA_PUB = ("MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmYu5nZQuf58VMwiVq"
+           "BNQM6+VGqs2EUSnueDYgKS0RjxFcZ5HwJHSLtsEbBLe8krONnM10frLfJwgmA"
+           "h1CtcQ0z322/mdHoGs2lHdiVZJA3F7i0b229YSU3jRF9wsujosbS+FJlbn2Tl"
+           "28iXc1tr5U/lIklGzoWpdVtM70tK8y+Z76Q/RvOLc4uJspCS76Oc45Pqc7z/s"
+           "pFlrkrhHo0Ql+Gn14V9KJI4n91RWC998TE/yxwNtckoUxz/sBqtl9+9ICYTca"
+           "+XyTKHKNOgS7nJb6l3sNkYo35uRxeihVCLtlj22UezafTMdRlm5UcGYj2DUBi"
+           "vb+8S5qsm8fqcHKGzXE8ehKr9TxwOLk7TKWoy0ps5RZYDw3BpAm+HI4DyOtyM"
+           "JhLpQZ3Rod5/jaOoh9Z+p+RHIX1JBzIXty7feyzYx6Zf8ECHASzI+rKfG6qkD"
+           "RyQ7Z9ttbkCyoXuqu/WCyRtlRK+XQHfEQlQwGAvFfsACxlMfx7U+665rqsfb0"
+           "nPoThSkIsXW6BPDo4GqOcZPzxBwvMONI8Ayc6ixQ5WAE7ctE6T4RCcWjzhJOn"
+           "RYTevo51gkJuqorf50DKNkBMkQASWGaKjBGrp+SDqLWfk/Ltv6Uxb1NGho2kY"
+           "VkQpiQRC09rJ6PrAlL2xmQgOEEPHSQxSAX1QWMervJxBUPiEtTiDiB/sCAwEA"
+           "AQ==")
 
 # Header Values
 MERCHANT_ID = "APPBAZAARONLINE"
