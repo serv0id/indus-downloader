@@ -15,7 +15,7 @@ class CryptoUtils(object):
         self.current_time = int(time.time() * 1000)
         self.device_id = device_id
 
-    def build_checksum_v4_1(self, payload: str) -> str:
+    def build_checksum_v4_1(self, payload: bytes) -> str:
         """
         Also known as "newChecksumSecure", this value is derived
         from a certain known set of values which are shared with the
@@ -33,11 +33,12 @@ class CryptoUtils(object):
               a random IV and tag using AES-GCM.
             - The tag and IV is appended to the result.
             - The appended string and the UUID is "zig-zagged" into a single string.
+            - The result is base64 encoded.
         """
         uuid_stripped = str(uuid.uuid4())[:16]
 
         key = hashlib.sha1((uuid_stripped + config.APP_SIGNATURE + self.device_id).encode()).digest()[:16]
-        hashed_payload = base64.b64encode(hashlib.sha256(payload.encode()).digest())
+        hashed_payload = base64.b64encode(hashlib.sha256(payload).digest())
 
         combined_payload = str(int(time.time()) * 1000) + "###" + hashed_payload.decode()
 
@@ -49,9 +50,10 @@ class CryptoUtils(object):
 
         final_checksum = self.merge_bytes(encoded_checksum.decode(), uuid_stripped)
 
-        return final_checksum.decode()
+        return base64.b64encode(final_checksum).decode()
 
-    def build_fingerprint(self) -> str:
+    @staticmethod
+    def build_fingerprint(payload: str) -> str:
         """
         Builds the device fingerprint header.
 
@@ -66,10 +68,10 @@ class CryptoUtils(object):
         nonce = key[:16]
 
         cipher_aes = AES.new(key, AES.MODE_CBC, nonce)
-        ciphertext_aes = base64.b64encode(cipher_aes.encrypt(pad(base64.b64encode(self.device_id.encode()),
-                                                                 AES.block_size))).decode()  # double encoding
+        ciphertext_aes = base64.b64encode(cipher_aes.encrypt(pad(base64.b64encode(payload.encode()),
+                                                                 AES.block_size))).decode()
 
-        cipher_rsa = PKCS1_v1_5.new(RSA.import_key(base64.b64decode(config.RSA_PUB)))
+        cipher_rsa = PKCS1_v1_5.new(RSA.import_key(base64.b64decode(config.PAYLOAD_ENCRYPTION_KEY)))
         ciphertext_rsa = base64.b64encode(cipher_rsa.encrypt(base64.b64encode(key))).decode()
 
         return str(len(ciphertext_rsa)).zfill(10) + ciphertext_rsa + ciphertext_aes

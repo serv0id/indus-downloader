@@ -5,19 +5,19 @@ BASE_URL = "https://api.indusappstore.com/apis/"
 APP_ID = "c46aae5ef00640a09869fb183724b586"
 APP_SIGNATURE = "L4lSY5pucA9Xwm5oS/xDmHZeDZA="
 
-RSA_PUB = ("MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmYu5nZQuf58VMwiVq"
-           "BNQM6+VGqs2EUSnueDYgKS0RjxFcZ5HwJHSLtsEbBLe8krONnM10frLfJwgmA"
-           "h1CtcQ0z322/mdHoGs2lHdiVZJA3F7i0b229YSU3jRF9wsujosbS+FJlbn2Tl"
-           "28iXc1tr5U/lIklGzoWpdVtM70tK8y+Z76Q/RvOLc4uJspCS76Oc45Pqc7z/s"
-           "pFlrkrhHo0Ql+Gn14V9KJI4n91RWC998TE/yxwNtckoUxz/sBqtl9+9ICYTca"
-           "+XyTKHKNOgS7nJb6l3sNkYo35uRxeihVCLtlj22UezafTMdRlm5UcGYj2DUBi"
-           "vb+8S5qsm8fqcHKGzXE8ehKr9TxwOLk7TKWoy0ps5RZYDw3BpAm+HI4DyOtyM"
-           "JhLpQZ3Rod5/jaOoh9Z+p+RHIX1JBzIXty7feyzYx6Zf8ECHASzI+rKfG6qkD"
-           "RyQ7Z9ttbkCyoXuqu/WCyRtlRK+XQHfEQlQwGAvFfsACxlMfx7U+665rqsfb0"
-           "nPoThSkIsXW6BPDo4GqOcZPzxBwvMONI8Ayc6ixQ5WAE7ctE6T4RCcWjzhJOn"
-           "RYTevo51gkJuqorf50DKNkBMkQASWGaKjBGrp+SDqLWfk/Ltv6Uxb1NGho2kY"
-           "VkQpiQRC09rJ6PrAlL2xmQgOEEPHSQxSAX1QWMervJxBUPiEtTiDiB/sCAwEA"
-           "AQ==")
+PAYLOAD_ENCRYPTION_KEY = ("MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmYu5nZQuf58VMwiVq"
+                          "BNQM6+VGqs2EUSnueDYgKS0RjxFcZ5HwJHSLtsEbBLe8krONnM10frLfJwgmA"
+                          "h1CtcQ0z322/mdHoGs2lHdiVZJA3F7i0b229YSU3jRF9wsujosbS+FJlbn2Tl"
+                          "28iXc1tr5U/lIklGzoWpdVtM70tK8y+Z76Q/RvOLc4uJspCS76Oc45Pqc7z/s"
+                          "pFlrkrhHo0Ql+Gn14V9KJI4n91RWC998TE/yxwNtckoUxz/sBqtl9+9ICYTca"
+                          "+XyTKHKNOgS7nJb6l3sNkYo35uRxeihVCLtlj22UezafTMdRlm5UcGYj2DUBi"
+                          "vb+8S5qsm8fqcHKGzXE8ehKr9TxwOLk7TKWoy0ps5RZYDw3BpAm+HI4DyOtyM"
+                          "JhLpQZ3Rod5/jaOoh9Z+p+RHIX1JBzIXty7feyzYx6Zf8ECHASzI+rKfG6qkD"
+                          "RyQ7Z9ttbkCyoXuqu/WCyRtlRK+XQHfEQlQwGAvFfsACxlMfx7U+665rqsfb0"
+                          "nPoThSkIsXW6BPDo4GqOcZPzxBwvMONI8Ayc6ixQ5WAE7ctE6T4RCcWjzhJOn"
+                          "RYTevo51gkJuqorf50DKNkBMkQASWGaKjBGrp+SDqLWfk/Ltv6Uxb1NGho2kY"
+                          "VkQpiQRC09rJ6PrAlL2xmQgOEEPHSQxSAX1QWMervJxBUPiEtTiDiB/sCAwEA"
+                          "AQ==")
 
 # Header Values
 MERCHANT_ID = "APPBAZAARONLINE"
@@ -44,9 +44,6 @@ DEVICE_LOCALES = ["en", "en-IN"]
 DEVICE_ABIS = ["arm64-v8a", "armeabi-v7a", "armeabi"]
 
 # User specific values
-ANDROID_ID = ""
-GAID = ""
-
 LATITUDE = None
 LONGITUDE = None
 
@@ -73,5 +70,3 @@ EXTENDED_USER_AGENT = {
 
 USER_AGENT = "Dalvik/2.1.0 (Linux; U; Android 13; RAD69 Build/TKQ1.221114.001)"
 SPLIT_APK_SUPPORTED = True
-
-DEVICE_ID = ""  # 32 bytes
