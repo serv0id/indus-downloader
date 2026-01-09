@@ -19,6 +19,14 @@ PAYLOAD_ENCRYPTION_KEY = ("MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmYu5nZQuf
                           "VkQpiQRC09rJ6PrAlL2xmQgOEEPHSQxSAX1QWMervJxBUPiEtTiDiB/sCAwEA"
                           "AQ==")
 
+REGISTRATION_ENCRYPTION_KEY = ("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsVtS18J6YIRV"
+                               "xRuwVoOvhoYYOVTBV4Nc6wHH1ghBEBNIr9NWPWDaJ0rx5+IChO7qnsVw"
+                               "BhuRJArrOnDlFdQ6PvvL3Qy0OJUnTQw5BC0pjWjkht6goxEhF7HNiCkm"
+                               "tiE8/KeUr6oKcIHRTF5gsOiSuuihLzsowbGZZorDY+aZ07NblpAqnNDA"
+                               "7o3TxJILRRljdTrgReEejik+0loovlGn8hlmZUYH6U75ytAzi7uE59fK"
+                               "DJfLVPn7AveqUOSxtnst05xtks1hkYfic9U1Br6FJu8EmP36/7GSEaE8"
+                               "ZAvn0Apn8tcFTZ147CU1z3G17bdzK/Xa4YJ/GBJO8T05JnQ9lQIDAQAB")
+
 # Header Values
 MERCHANT_ID = "APPBAZAARONLINE"
 CHECKMATE_CLIENT_ID = "AB_ANDROID"
