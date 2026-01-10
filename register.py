@@ -13,6 +13,8 @@ class IndusDevice(object):
         self.device_id: str = ''
         self.fingerprint: str = ''
 
+        self.create_device()
+
     def create_device(self) -> None:
         """
         Creates device unique secrets that form the basis for all
@@ -28,24 +30,11 @@ class Register(object):
     def __init__(self):
         self.session: Session = Session()
 
-    def register(self) -> None:
+    def register_device(self) -> None:
         """
         Registers a new device with the servers.
         """
-        pass
-
-    def get_keys(self) -> dict:
-        """
-        Retrieves necessary RSA keys.
-        """
-        res = self.session.post(url=config.BASE_URL + "keystore/v2/keys/client/AB_ANDROID/latest",
-                                json=[
-                                        "PAYLOAD_ENCRYPTION",
-                                        "REGISTRATION_ENCRYPTION_KEY",
-                                        "OCI_VERIFICATION_KEY"
-                                     ])
-
-        return res.json()
+        device = IndusDevice()
 
     def dump(self) -> None:
         """

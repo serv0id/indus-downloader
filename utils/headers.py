@@ -1,14 +1,16 @@
 import time
 from requests import Request
 import config
+import register
 
 
 class HeaderUtils(object):
-    def __init__(self, request: Request):
-        request.headers = self.build_headers()
+    def __init__(self, request: Request, device: register.IndusDevice):
+        self.device = device
+        self.request = request
+        self.request.headers = self.build_headers()
 
-    @staticmethod
-    def build_headers() -> dict:
+    def build_headers(self) -> dict:
         return {
             "android-version": config.ANDROID_VERSION,
             "release-version": config.RELEASE_VERSION,
@@ -22,8 +24,8 @@ class HeaderUtils(object):
             "device-screen-density-buildprop": config.DEVICE_SCREEN_DENSITY_BUILDPROP,
             "device-locales": config.DEVICE_LOCALES,
             "device-abis": config.DEVICE_ABIS,
-            "android-id": 0,  # TODO
-            "gaid": 0,
+            "android-id": self.device.android_id,
+            "gaid": self.device.gaid,
             "latitude": None,
             "longitude": None,
             "mcc": None,
@@ -40,7 +42,7 @@ class HeaderUtils(object):
             "split-apk-supported": True,
             "appsessionid": 0,
             "client-event-timestamp": int(time.time()) * 1000,
-            "deviceid": 0,
+            "deviceid": self.device.device_id,
             "x-source-app": "AB",
             "obb-supported": True,
             "x-app-id": config.APP_ID,
