@@ -1,16 +1,19 @@
 import time
-from requests import Request
+from typing import override
+from urllib.parse import urlparse
+
+import requests
 import config
 import register
+import utils.crypto
 
 
-class HeaderUtils(object):
-    def __init__(self, request: Request, device: register.IndusDevice):
+class IndusSession(requests.Session):
+    def __init__(self, device: register.IndusDevice):
+        super().__init__()
         self.device = device
-        self.request = request
-        self.request.headers = self.build_headers()
 
-    def build_headers(self) -> dict:
+    def _build_headers(self) -> dict:
         return {
             "android-version": config.ANDROID_VERSION,
             "release-version": config.RELEASE_VERSION,
@@ -60,5 +63,21 @@ class HeaderUtils(object):
             "islowmemory": False,
             "x-checkmate-client-id": config.CHECKMATE_CLIENT_ID,
             "x-checkmate-key-version": 1,
-            "x-request-alias": config.REQUEST_ALIAS
+            "x-request-alias": config.REQUEST_ALIAS,
+            "x-device-fingerprint": self.device.fingerprint,
         }
+
+    @override
+    def prepare_request(self, request) -> requests.PreparedRequest:
+        prepared = super().prepare_request(request)
+        parsed_url = urlparse(prepared.url)
+
+        prepared.headers.update(self._build_headers())
+        crypto = utils.crypto.CryptoUtils(self.device.device_id)
+
+        prepared.headers["x-request-checksum-v4"] = crypto.build_checksum_v4_1(
+            ((parsed_url.path if not parsed_url.query else parsed_url.path + "?" + parsed_url.query) +
+            prepared.body).encode()
+        )
+
+        return prepared

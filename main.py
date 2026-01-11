@@ -1,10 +1,11 @@
 import requests
 import config
+from utils.headers import IndusSession
 
 
 class IndusClient(object):
     def __init__(self):
-        self.session = requests.Session()
+        self.session = IndusSession()
 
 
 def main() -> None:

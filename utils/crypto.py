@@ -100,7 +100,7 @@ class CryptoUtils(object):
     @staticmethod
     def merge_bytes(a3: str, a4: str) -> bytes:
         """
-        Merges the two strings in a "zigzag" manner.
+        Merge the two strings in a "zigzag" manner.
         """
         a3b = a3.encode()
         a4b = a4.encode()

@@ -22,8 +22,8 @@ class IndusDevice(object):
         """
         self.gaid = str(uuid.uuid4())
         self.android_id = secrets.token_hex(8)
-        self.device_id = base64.b64encode(secrets.token_bytes(32))
-        self.fingerprint = utils.crypto.CryptoUtils.build_fingerprint(self.device_id.decode())
+        self.device_id = base64.b64encode(secrets.token_bytes(32)).decode()
+        self.fingerprint = utils.crypto.CryptoUtils.build_fingerprint(self.device_id)
 
 
 class Register(object):
