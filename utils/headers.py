@@ -81,8 +81,7 @@ class IndusSession(requests.Session):
         crypto = utils.crypto.CryptoUtils(self.device.device_id)
 
         prepared.headers["x-request-checksum-v4"] = crypto.build_checksum_v4_1(
-            ((parsed_url.path if not parsed_url.query else parsed_url.path + "?" + parsed_url.query) +
-             body).encode()  # not sure about the query part
+            (parsed_url.path + body).encode()
         )
 
         return prepared
