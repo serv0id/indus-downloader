@@ -48,19 +48,10 @@ FORM_FACTOR = "phone"
 SERVICE_SUPPORTED = "gms"
 DEVICE_SCREEN_DENSITY = 440
 DEVICE_SCREEN_DENSITY_BUILDPROP = 440
-DEVICE_LOCALES = ["en", "en-IN"]
-DEVICE_ABIS = ["arm64-v8a", "armeabi-v7a", "armeabi"]
+DEVICE_LOCALES = str(["en", "en-IN"])
+DEVICE_ABIS = str(["arm64-v8a", "armeabi-v7a", "armeabi"])
 
 # User specific values
-LATITUDE = None
-LONGITUDE = None
-
-MCC = None
-MNC = None
-LAC = None
-CID = None
-
-NETWORK_OPERATOR_NAME = None
 NETWORK_TYPE = "wifi"
 
 EXTENDED_USER_AGENT = {

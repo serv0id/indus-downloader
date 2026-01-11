@@ -29,15 +29,15 @@ class IndusSession(requests.Session):
             "device-abis": config.DEVICE_ABIS,
             "android-id": self.device.android_id,
             "gaid": self.device.gaid,
-            "latitude": None,
-            "longitude": None,
-            "mcc": None,
-            "mnc": None,
-            "lac": None,
-            "cid": None,
-            "networkoperatorname": None,
+            "latitude": "None",
+            "longitude": "None",
+            "mcc": "None",
+            "mnc": "None",
+            "lac": "None",
+            "cid": "None",
+            "networkoperatorname": "None",
             "networktype": config.NETWORK_TYPE,
-            "x-extended-user-agent": config.EXTENDED_USER_AGENT,
+            "x-extended-user-agent": str(config.EXTENDED_USER_AGENT),
             "user-agent": config.USER_AGENT,
             "integration-type": "standalone",
             "universe": config.UNIVERSE,
@@ -72,12 +72,17 @@ class IndusSession(requests.Session):
         prepared = super().prepare_request(request)
         parsed_url = urlparse(prepared.url)
 
+        if prepared.body is None:
+            body = ''
+        else:
+            body = prepared.body
+
         prepared.headers.update(self._build_headers())
         crypto = utils.crypto.CryptoUtils(self.device.device_id)
 
         prepared.headers["x-request-checksum-v4"] = crypto.build_checksum_v4_1(
             ((parsed_url.path if not parsed_url.query else parsed_url.path + "?" + parsed_url.query) +
-            prepared.body).encode()
+             body).encode()  # not sure about the query part
         )
 
         return prepared
