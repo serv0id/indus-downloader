@@ -1,15 +1,14 @@
 import time
 from typing import override
 from urllib.parse import urlparse
-
 import requests
 import config
-import register
 import utils.crypto
+from utils.device import IndusDevice
 
 
 class IndusSession(requests.Session):
-    def __init__(self, device: register.IndusDevice):
+    def __init__(self, device: IndusDevice):
         super().__init__()
         self.device = device
 
@@ -81,7 +80,7 @@ class IndusSession(requests.Session):
         crypto = utils.crypto.CryptoUtils(self.device.device_id)
 
         prepared.headers["x-request-checksum-v4"] = crypto.build_checksum_v4_1(
-            (parsed_url.path + body).encode()
+            parsed_url.path.encode() + body
         )
 
         return prepared
