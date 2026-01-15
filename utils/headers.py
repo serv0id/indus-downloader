@@ -43,7 +43,6 @@ class IndusSession(requests.Session):
             "build-version": config.BUILD_VERSION,
             "split-apk-supported": "true",
             "appsessionid": "AS1765322136845",
-            "accept-version": "2.1.1",
             "client-event-timestamp": str(int(time.time()) * 1000),
             "deviceid": self.device.device_id,
             "x-source-app": "AB",

@@ -67,7 +67,7 @@ class Register(object):
             "x-encryption-type": "rsa-aes",
             "x-key-version": "1",
             "content-type": "text/plain",
-        }, data=CryptoUtils.build_fingerprint(payload, config.REGISTRATION_ENCRYPTION_KEY))
+        }, data=CryptoUtils.build_fingerprint(payload, config.REGISTRATION_ENCRYPTION_KEY).encode())
 
         print(res.text)
 
