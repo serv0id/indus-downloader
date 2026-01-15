@@ -53,7 +53,7 @@ class CryptoUtils(object):
         return base64.b64encode(final_checksum).decode()
 
     @staticmethod
-    def build_fingerprint(payload: str) -> str:
+    def build_fingerprint(payload: str, pub_key=config.PAYLOAD_ENCRYPTION_KEY) -> str:
         """
         Builds the device fingerprint header.
 
@@ -71,7 +71,7 @@ class CryptoUtils(object):
         ciphertext_aes = base64.b64encode(cipher_aes.encrypt(pad(base64.b64encode(payload.encode()),
                                                                  AES.block_size))).decode()
 
-        cipher_rsa = PKCS1_v1_5.new(RSA.import_key(base64.b64decode(config.PAYLOAD_ENCRYPTION_KEY)))
+        cipher_rsa = PKCS1_v1_5.new(RSA.import_key(base64.b64decode(pub_key)))
         ciphertext_rsa = base64.b64encode(cipher_rsa.encrypt(base64.b64encode(key))).decode()
 
         return str(len(ciphertext_rsa)).zfill(10) + ciphertext_rsa + ciphertext_aes
