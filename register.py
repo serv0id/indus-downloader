@@ -1,5 +1,4 @@
 import json
-import time
 import config
 from utils.device import IndusDevice
 from utils.headers import IndusSession
@@ -75,25 +74,14 @@ class Register(object):
         """
         Dumps the credentials to a JSON file.
         """
-        with open(f"device_{time.time()}.json", "w") as f:
+        with open(f"device.json", "w") as f:
             json.dump(self.device.__dict__, f, indent=2)
-
-
-def import_device(file) -> IndusDevice:
-    """
-    Imports a device from a dumped file.
-    """
-    with open(file, "r") as f:
-        data = json.load(f)
-        device = IndusDevice()
-        device.__dict__.update(data)
-
-        return device
 
 
 def main() -> None:
     register = Register()
-    register.register_device()
+    register.dump()
+    logger.info("Successfully created and saved the device to device.json!")
 
 
 if __name__ == "__main__":

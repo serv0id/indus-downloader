@@ -1,18 +1,36 @@
+import json
 import uuid
 import config
 from utils.device import IndusDevice
 from utils.headers import IndusSession
+from loguru import logger
+import click
+from prettytable import PrettyTable
 
 
 class IndusClient(object):
     def __init__(self):
         self.device: IndusDevice = IndusDevice()
+        self.import_device()
         self.session: IndusSession = IndusSession(self.device)
 
-    def search_app(self, name: str) -> dict:
+    def import_device(self) -> None:
+        """
+        Imports a device from a dumped file.
+        """
+        try:
+            with open("device.json", "r") as f:
+                data = json.load(f)
+                self.device.__dict__.update(data)
+                logger.info("Device loaded!")
+        except FileNotFoundError:
+            logger.error("No device file found! Run register.py")
+
+    def search_app(self, name: str) -> None:
         """
         Searches for the app name and returns a dict of possible matches.
         """
+        logger.info(f"Searching for app: {name}")
         res = self.session.post(url=config.BASE_URL + "appsearch/apps/search", json={
             "deviceLang": "en",
             "iasLang": "en",
@@ -28,7 +46,14 @@ class IndusClient(object):
             "subSourceType": name
         })
 
-        return res.json()
+        table = PrettyTable()
+        table.field_names = ["Name", "Developer", "Version", "Package Name"]
+
+        for app in res.json()["list"]:
+            table.add_row([app["title"], app["developer"]["name"]["display"], app["versions"][0]["label"],
+                           app["package"]])
+
+        print(table)
 
     def download_app(self, package_name: str) -> dict:
         res = self.session.post(url=config.BASE_URL + "indus-abapi/device/apps/download/" + package_name, json={
