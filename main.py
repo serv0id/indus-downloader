@@ -28,7 +28,7 @@ class IndusClient(object):
 
     def search_app(self, name: str) -> None:
         """
-        Searches for the app name and returns a dict of possible matches.
+        Searches for the app name and displays a table of possible matches.
         """
         logger.info(f"Searching for app: {name}")
         res = self.session.post(url=config.BASE_URL + "appsearch/apps/search", json={
@@ -69,9 +69,12 @@ class IndusClient(object):
             "deviceLang": "en"
         }, headers={
             "accept-version": "3.2.0"
-        })
+        }).json()
 
-        return res.json()
+        if res["download_link"] != '':
+            print(f"Download Link: {res['download_link']}")
+        else:
+            logger.error(f"Package {package_name} not found!")
 
     def epoch(self) -> int:
         """
@@ -82,8 +85,30 @@ class IndusClient(object):
         return res.json()["data"]["epoch"]
 
 
-def main() -> None:
+@click.group()
+def cli():
+    """CLI for interacting with indus-downloader."""
+    pass
+
+
+@cli.command()
+@click.argument("app_name")
+def search(app_name: str) -> None:
+    """Search for an app by name."""
     indus = IndusClient()
+    indus.search_app(app_name)
+
+
+@cli.command()
+@click.argument("package_name")
+def download(package_name: str) -> None:
+    """Download an app by package name."""
+    indus = IndusClient()
+    indus.download_app(package_name)
+
+
+def main() -> None:
+    cli()
 
 
 if __name__ == "__main__":
